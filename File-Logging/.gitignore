@@ -1,0 +1,10 @@
+Build
+File-Logging-*.tar.gz
+MANIFEST.SKIP.bak
+META.json
+META.yml
+MYMETA.json
+MYMETA.yml
+Makefile.PL
+_build/
+mybuild.sh
