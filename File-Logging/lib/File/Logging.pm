@@ -19,7 +19,7 @@ Version 0.01
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 =head1 SYNOPSIS
@@ -42,7 +42,7 @@ use Tie::File;
 
 sub new( @ ) {
     my $class = shift;
-    $_[0] =~ /^help$/i && do { _usage(); return; };
+    $_[0] && $_[0] =~ /^help$/i && do { _usage(); return; };
     my $self = { @_ }; 
     bless( $self, $class );
     $$self{"DBGLVL"} = 0 if ( ! defined $$self{"DBGLVL"} );
