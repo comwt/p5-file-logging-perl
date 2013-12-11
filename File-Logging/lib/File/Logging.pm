@@ -19,7 +19,7 @@ Version 0.01
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 =head1 SYNOPSIS
@@ -51,7 +51,7 @@ sub new( @ ) {
         $0 =~ /.*[\\\/](.+)/;
         $$self{"DEFAULT"}{"PATH"} = "$1.log";
         print STDERR qq(DEFAULT log not set, using '$$self{"DEFAULT"}{"PATH"}'.\n)
-                   . qq(Run    'my \$l = Logging->new( "help" );'   for options.\n);
+                   . qq(Run    'my \$l = File::Logging->new( "help" );'   for options.\n);
 
     }
     return( $self );
@@ -225,9 +225,9 @@ sub warn( @ ) {
 
 sub _usage() {
     print q(
-    USAGE (Logging Package):
+    USAGE (File::Logging Package):
     ------------------------------------------------------------------------------
-    my $l = Logging->new( "help" |
+    my $l = File::Logging->new( "help" |
                           DEFAULT => {
                               PATH     => "<log path>",
                              [MAXLINES =>  <# lines>, ]
@@ -257,7 +257,7 @@ sub _usage() {
 
     Example:
     ------------------------------------------------------------------------------
-    my $l = Logging->new(
+    my $l = File::Logging->new(
                           "DEFAULT" => { "PATH" => "/tmp/default.log", "MAXLINES" => 5000 },
                           "SERVER"  => { "PATH" => "/tmp/server.log" },
                           "DEBUG"   => ( "@ARGV" =~ /-debug/i ) ? 1 : 0,
@@ -265,8 +265,10 @@ sub _usage() {
                           "PID"     => 1,
                         );
     $l->info( "-print_only", "Started" );      #prints to screen only
-    $l->debug( "-print", 3, "ARGS: @ARGV" );   #prints to default.log
-    $l->info( "-print", "Started", "SERVER" ); #prints to server.log
+    $l->info( "-print", "print to screen and default.log" );
+    $l->debug( "-print", 3, "ARGS: @ARGV" );   #prints to screen and default.log, if -debug given
+    $l->info( "-print", "Started", "SERVER" ); #prints to screen and server.log
+    $l->info( "Started", "SERVER" );           #prints to server.log only
 
 );
 }
