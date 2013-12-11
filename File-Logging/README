@@ -23,7 +23,7 @@ my $i = File::Logging->new();
 $i->info( "-print", "Hello!" );
 
 
-If your script is named "hello.pl" it will create a log file named "hello.pl.log" in your current directory.
+In the simple example, above, if your script is named "hello.pl" it will create a log file named "hello.pl.log" in your current directory.
 
 Full disclosure is included in the Synopsys.
 
