@@ -1,15 +1,31 @@
 File-Logging
 
-The README is used to introduce the module and provide instructions on
-how to install the module, any machine dependencies it may have (for
-example C compilers and installed libraries) and any other information
-that should be provided before the module is installed.
 
-A README file is required for CPAN modules since CPAN extracts the README
-file from a module distribution so that people browsing the archive
-can use it to get an idea of the module's uses. It is usually a good idea
-to provide version information here so that people can decide whether
-fixes for the module are worth downloading.
+This module was designed to provide a powerful, yet easy to use interface for logging.
+
+
+Key Features:
+
+> Object Oriented to keep your programs and namespace clean
+> Automatic file locking and unlocking
+> Ability to auto-truncate files, write to screen, log or both, log process ids
+> Multiple debug levels supported
+> Support for alternate log files (i.e. server, client, default)
+> Built in help
+> Supports the following log types: alert, crit, debug, emerg (emergency), error, fatal, info, log, normal, notice, success and warn
+> Colorized output
+
+
+You don't even have to define your log names/paths to use it. The simplest invocation is, as follows:
+
+use File::Logging;
+my $i = File::Logging->new();
+$i->info( "-print", "Hello!" );
+
+
+If your script is named "hello.pl" it will create a log file named "hello.pl.log" in your current directory.
+
+Full disclosure is included in the Synopsys.
 
 
 INSTALLATION
