@@ -2,7 +2,11 @@ package File::Logging;
 
 ##############################################################################
 # Package   : Logging
+# Author    : Justin Francis
+# License   : GNU GPLv2
 # Methods   : See methods under _usage() or call new as Logging::new( "help" );
+# Note      : You can find this package at CPAN and GitHub under
+#             p5-file-logging-perl.
 ##############################################################################
 
 use 5.006;
@@ -62,7 +66,13 @@ sub alert( @ ) {
     croak( "$self is not an object" ) if ( ! ref($self) );
     my( $l_print_TF );
     $l_print_TF = ( $_[0] =~ /^\-print/i ) ? shift : 0;
-    print RED . "[ALERT] $_[0]" . RST . "\n" if ( $l_print_TF );
+    if ( $l_print_TF ) {
+        if ( defined $ENV{'TERM'} ) {
+            print RED . "[ALERT] $_[0]" . RST . "\n";
+        } else {
+            print "[ALERT] $_[0]\n";
+        }
+    }
     return if ( $l_print_TF =~ /^\-print_only/i );
     my $l_log = ( scalar @_ gt 1 ) ? pop : "DEFAULT";
     my $l_pid = ( exists $$self{"PID"} && $$self{"PID"} || exists $$self{"$l_log"}{"PID"} && $$self{"$l_log"}{"PID"} ) ? "[PID:$$] " : "";
@@ -74,7 +84,13 @@ sub crit( @ ) {
     croak( "$self is not an object" ) if ( ! ref($self) );
     my( $l_print_TF );
     $l_print_TF = ( $_[0] =~ /^\-print/i ) ? shift : 0;
-    print RED . "[CRIT] $_[0]" . RST . "\n" if ( $l_print_TF );
+    if ( $l_print_TF ) {
+        if ( defined $ENV{'TERM'} ) {
+            print RED . "[CRIT] $_[0]" . RST . "\n";
+        } else {
+            print "[CRIT] $_[0]\n";
+        }
+    }
     return if ( $l_print_TF =~ /^\-print_only/i );
     my $l_log = ( scalar @_ gt 1 ) ? pop : "DEFAULT";
     my $l_pid = ( exists $$self{"PID"} && $$self{"PID"} || exists $$self{"$l_log"}{"PID"} && $$self{"$l_log"}{"PID"} ) ? "[PID:$$] " : "";
@@ -89,7 +105,13 @@ sub debug( @ ) {
     $l_print_TF = ( $_[0] =~ /^\-print/i ) ? shift : 0;
     $l_debug_level = ( $_[0] =~ /^\d+$/ && defined $_[1] ) ? shift : 0;
     return if ( $l_debug_level > $$self{"DBGLVL"} );
-    print BLU . "[DEBUG] $_[0]" . RST . "\n" if ( $l_print_TF );
+    if ( $l_print_TF ) {
+        if ( defined $ENV{'TERM'} ) {
+            print BLU . "[DEBUG] $_[0]" . RST . "\n";
+        } else {
+            print "[DEBUG] $_[0]\n";
+        }
+    }
     return if ( $l_print_TF =~ /^\-print_only/i );
     my $l_log = ( scalar @_ gt 1 ) ? pop : "DEFAULT";
     my $l_pid = ( exists $$self{"PID"} && $$self{"PID"} || exists $$self{"$l_log"}{"PID"} && $$self{"$l_log"}{"PID"} ) ? "[PID:$$] " : "";
@@ -101,7 +123,13 @@ sub emerg( @ ) {
     croak( "$self is not an object" ) if ( ! ref($self) );
     my( $l_print_TF );
     $l_print_TF = ( $_[0] =~ /^\-print/i ) ? shift : 0;
-    print RED . "[EMERGENCY] $_[0]" . RST . "\n" if ( $l_print_TF );
+    if ( $l_print_TF ) {
+        if ( defined $ENV{'TERM'} ) {
+            print RED . "[EMERGENCY] $_[0]" . RST . "\n";
+        } else {
+            print "[EMERGENCY] $_[0]\n";
+        }
+    }
     return if ( $l_print_TF =~ /^\-print_only/i );
     my $l_log = ( scalar @_ gt 1 ) ? pop : "DEFAULT";
     my $l_pid = ( exists $$self{"PID"} && $$self{"PID"} || exists $$self{"$l_log"}{"PID"} && $$self{"$l_log"}{"PID"} ) ? "[PID:$$] " : "";
@@ -113,7 +141,13 @@ sub error( @ ) {
     croak( "$self is not an object" ) if ( ! ref($self) );
     my( $l_print_TF );
     $l_print_TF = ( $_[0] =~ /^\-print/i ) ? shift : 0;
-    print RED . "[ERROR] $_[0]" . RST . "\n" if ( $l_print_TF );
+    if ( $l_print_TF ) {
+        if ( defined $ENV{'TERM'} ) {
+            print RED . "[ERROR] $_[0]" . RST . "\n";
+        } else {
+            print "[ERROR] $_[0]\n";
+        }
+    }
     return if ( $l_print_TF =~ /^\-print_only/i );
     my $l_log = ( scalar @_ gt 1 ) ? pop : "DEFAULT";
     my $l_pid = ( exists $$self{"PID"} && $$self{"PID"} || exists $$self{"$l_log"}{"PID"} && $$self{"$l_log"}{"PID"} ) ? "[PID:$$] " : "";
@@ -125,7 +159,13 @@ sub fatal( @ ) {
     croak( "$self is not an object" ) if ( ! ref($self) );
     my( $l_print_TF );
     $l_print_TF = ( $_[0] =~ /^\-print/i ) ? shift : 0;
-    print RED . "[FATAL] $_[0]" . RST . "\n" if ( $l_print_TF );
+    if ( $l_print_TF ) {
+        if ( defined $ENV{'TERM'} ) {
+            print RED . "[FATAL] $_[0]" . RST . "\n";
+        } else {
+            print "[FATAL] $_[0]\n";
+        }
+    }
     return if ( $l_print_TF =~ /^\-print_only/i );
     my $l_log = ( scalar @_ gt 1 ) ? pop : "DEFAULT";
     my $l_pid = ( exists $$self{"PID"} && $$self{"PID"} || exists $$self{"$l_log"}{"PID"} && $$self{"$l_log"}{"PID"} ) ? "[PID:$$] " : "";
@@ -192,7 +232,13 @@ sub notice( @ ) {
     croak( "$self is not an object" ) if ( ! ref($self) );
     my( $l_print_TF );
     $l_print_TF = ( $_[0] =~ /^\-print/i ) ? shift : 0;
-    print YEL . "[NOTICE] $_[0]" . RST . "\n" if ( $l_print_TF );
+    if ( $l_print_TF ) {
+        if ( defined $ENV{'TERM'} ) {
+            print YEL . "[NOTICE] $_[0]" . RST . "\n";
+        } else {
+            print "[NOTICE] $_[0]\n";
+        }
+    }
     return if ( $l_print_TF =~ /^\-print_only/i );
     my $l_log = ( scalar @_ gt 1 ) ? pop : "DEFAULT";
     my $l_pid = ( exists $$self{"PID"} && $$self{"PID"} || exists $$self{"$l_log"}{"PID"} && $$self{"$l_log"}{"PID"} ) ? "[PID:$$] " : "";
@@ -204,7 +250,13 @@ sub success( @ ) {
     croak( "$self is not an object" ) if ( ! ref($self) );
     my( $l_print_TF );
     $l_print_TF = ( $_[0] =~ /^\-print/i ) ? shift : 0;
-    print GRE . "[SUCCESS] $_[0]" . RST . "\n" if ( $l_print_TF );
+    if ( $l_print_TF ) {
+        if ( defined $ENV{'TERM'} ) {
+            print GRE . "[SUCCESS] $_[0]" . RST . "\n";
+        } else {
+            print "[SUCCESS] $_[0]\n";
+        }
+    }
     return if ( $l_print_TF =~ /^\-print_only/i );
     my $l_log = ( scalar @_ gt 1 ) ? pop : "DEFAULT";
     my $l_pid = ( exists $$self{"PID"} && $$self{"PID"} || exists $$self{"$l_log"}{"PID"} && $$self{"$l_log"}{"PID"} ) ? "[PID:$$] " : "";
@@ -216,7 +268,13 @@ sub warn( @ ) {
     croak( "$self is not an object" ) if ( ! ref($self) );
     my( $l_print_TF );
     $l_print_TF = ( $_[0] =~ /^\-print/i ) ? shift : 0;
-    print YEL . "[WARN] $_[0]" . RST . "\n" if ( $l_print_TF );
+    if ( $l_print_TF ) {
+        if ( defined $ENV{'TERM'} ) {
+            print YEL . "[WARN] $_[0]" . RST . "\n";
+        } else {
+            print "[WARN] $_[0]\n";
+        }
+    }
     return if ( $l_print_TF =~ /^\-print_only/i );
     my $l_log = ( scalar @_ gt 1 ) ? pop : "DEFAULT";
     my $l_pid = ( exists $$self{"PID"} && $$self{"PID"} || exists $$self{"$l_log"}{"PID"} && $$self{"$l_log"}{"PID"} ) ? "[PID:$$] " : "";
